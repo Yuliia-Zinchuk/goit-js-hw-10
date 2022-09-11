@@ -1,6 +1,6 @@
-export function fetchCountries(userText) {
+export function fetchCountries(searchCountry) {
   return fetch(
-    `https://restcountries.com/v3.1/name/${userText}?fields=name,capital,population,flags,languages`
+    `https://restcountries.com/v3.1/name/${searchCountry}?fields=name,capital,population,flags,languages`
   ).then(
     //return fetch(`https://restcountries.com/v3.1/name/${userText}`).then(  &fields=name,capital,population,flags,languages
     response => {
