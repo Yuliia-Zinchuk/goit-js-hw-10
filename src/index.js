@@ -31,7 +31,9 @@ function renderCountriesList(countries) {
   const markup = countries
     .map(countrie => {
       return `<li>
-                <p><b>Name</b>:${countrie.area}</p>
+                <p><b>Name</b>:${countrie.name.official}</p>
+                <p><b>Email</b>: ${countrie.capital}</p>
+                <p><b>Email</b>: ${countrie.languages}</p>
               </li>
           `;
     })
@@ -41,6 +43,11 @@ function renderCountriesList(countries) {
   countryList.innerHTML = markup;
   // console.log(markup);
 }
+
+//  <p>
+//    <b>Name</b>:${countrie.area}
+//  </p>;
+
 // console.log(countrie);
 // const listCountries = fetch(`https://restcountries.com/v3.1/name/peru`)
 //   .then(response => {
