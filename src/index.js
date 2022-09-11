@@ -30,10 +30,10 @@ function onSearch(evt) {
 
 function compareArray(countries) {
   if (countries.length > 10) {
-    Notiflix.Notify.info(
+    return Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
-  } else if (countries.length > 2 && countries.length < 10) {
+  } else if (countries.length >= 2 && countries.length <= 10) {
     renderCountriesList(countries);
   } else {
     renderCountriesInfo(countries);
@@ -41,7 +41,7 @@ function compareArray(countries) {
 }
 
 function renderCountriesList(countries) {
-  countryList.innerHTML = countries
+  return (countryList.innerHTML = countries
     .map(country => {
       return `<li>
         <img class="picture" src="${country.flags.svg}" alt="flag" width="60">
@@ -50,16 +50,16 @@ function renderCountriesList(countries) {
               </li>
           `;
     })
-    .join('');
+    .join(''));
 }
 
 function renderCountriesInfo(countries) {
   const { flags, name, capital, population, languages } = countries[0];
-  countryInfo.innerHTML = `<ul class=country-title>
+  return (countryInfo.innerHTML = `<ul class=country-title>
     <img src="${flags.svg}" alt="flag" width="60">
             <h2>${name.official}</h2></ul>
              <ul><li><h3>Capital: ${capital}</h3></li>
             <li><h3>Population: ${population}</h3></li>
             <li><h3>Languages: ${Object.values(languages)}</h3></li>
-             </ul>`;
+             </ul>`);
 }
