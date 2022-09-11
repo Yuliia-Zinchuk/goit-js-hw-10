@@ -1,0 +1,2 @@
+const e=document.querySelector("#search-box"),t=document.querySelector(".country-list");let n;e.addEventListener("input",(e=>{e.preventDefault(),n=e.currentTarget.value,fetch("https://restcountries.com/v3.1/all").then((e=>{if(!e.ok)throw new Error(e.status);return e.json()})).then((e=>function(e){console.log(e),console.log(777);const n=e.map((e=>`<li>\n                <p><b>Name</b>:${e.area}</p>\n              </li>\n          `)).join("");t.innerHTML=n}(e))).catch((e=>console.log("error rfrkq")))}));
+//# sourceMappingURL=index.1d73545f.js.map
