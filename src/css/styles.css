@@ -25,6 +25,15 @@ li {
   gap: 15px;
 }
 
+.country-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
+
+  gap: 15px;
+}
+
 .list {
   list-style: none;
   padding-left: 0;
