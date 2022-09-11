@@ -1,23 +1,40 @@
 import './css/styles.css';
 import { fetchCountries } from './fetchCountries';
+import debounce from 'debounce';
+import Notiflix from 'notiflix';
 
 const DEBOUNCE_DELAY = 1000;
 
 const searchBox = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
-
+console.dir(searchBox);
 let userText;
 
-searchBox.addEventListener('input', event => {
-  event.preventDefault();
-  userText = event.currentTarget.value;
+//const returnedFunction = debounce(onSearch(), 500);
+
+//window.addEventListener('resize', returnedFunction);
+
+searchBox.addEventListener('input', onSearch, 500);
+
+//searchBox.addEventListener('input', debounce(onSearch), 5000);
+
+// Функция, которую мы хотим «откладывать»:
+
+function onSearch(evt) {
+  evt.preventDefault();
+  userText = evt.currentTarget.value;
+
   fetchCountries(userText)
-    .then(countries => renderCountriesList(countries))
+    // .then(countries => renderCountriesList(countries)) ///может без параметров
+    .then(renderCountriesList) ///это без параметров
     //.then(countries => console.log(countries));
 
     .catch(error => console.log('error rfrkq'));
+  //  .finally(() => evt.currentTarget.reset());
+  // evt.currentTarget.reset();
+
   //event.target.reset();
-});
+}
 
 // console.log(userText);
 // const countrytest = 'peru';
@@ -27,22 +44,32 @@ searchBox.addEventListener('input', event => {
 
 function renderCountriesList(countries) {
   console.log(countries);
-  console.log(777);
-  const markup = countries
-    .map(countrie => {
-      return `<li>
-                <p><b>Name</b>:${countrie.name.official}</p>
-                <p><b>Email</b>: ${countrie.capital}</p>
-                <p><b>Email</b>: ${countrie.languages}</p>
+
+  console.log(countries.length);
+  if (countries.length > 10) {
+    return Notiflix.Notify.failure(`Rejected promise  in ms`);
+  } else if ((countries.length > 2) & (countries.length < 10)) {
+    console.log(12345);
+
+    const markup = countries
+      .map(countrie => {
+        return `<li>
+        <img class="picture" src="${countrie.flags.svg}" alt="flag" width="60">
+                <h3>${countrie.name.official}</h3>
+              
               </li>
           `;
-    })
+      })
 
-    .join('');
-  // countryList.insertAdjacentHTML = markup;
-  countryList.innerHTML = markup;
+      .join('');
+    // countryList.insertAdjacentHTML = markup;
+    countryList.innerHTML = markup;
+  }
   // console.log(markup);
 }
+
+//   <p><b>Email</b>: ${countrie.capital}</p>
+//                 <p><b>Email</b>: ${countrie.languages}</p>
 
 //  <p>
 //    <b>Name</b>:${countrie.area}
