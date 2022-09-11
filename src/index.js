@@ -1,4 +1,5 @@
 import './css/styles.css';
+import { fetchCountries } from './fetchCountries';
 
 const DEBOUNCE_DELAY = 1000;
 
@@ -22,14 +23,7 @@ searchBox.addEventListener('input', event => {
 // const countrytest = 'peru';
 //?fields=name,capital,currencies
 
-function fetchCountries(name) {
-  return fetch(`https://restcountries.com/v3.1/all`).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
-}
+//function fetchCountries(name)
 
 function renderCountriesList(countries) {
   console.log(countries);
