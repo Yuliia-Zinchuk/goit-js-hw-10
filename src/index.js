@@ -1,17 +1,21 @@
 import './css/styles.css';
 
-const DEBOUNCE_DELAY = 300;
+const DEBOUNCE_DELAY = 1000;
 
 const searchBox = document.querySelector('#search-box');
-const countryList = document.querySelector('#country-list');
+const countryList = document.querySelector('.country-list');
 
 let userText;
 
 searchBox.addEventListener('input', event => {
+  event.preventDefault();
   userText = event.currentTarget.value;
   fetchCountries(userText)
-    .then(countries => console.log(countries))
-    .catch(error => console.log('error'));
+    .then(countries => renderCountriesList(countries))
+    //.then(countries => console.log(countries));
+
+    .catch(error => console.log('error rfrkq'));
+  //event.target.reset();
 });
 
 // console.log(userText);
@@ -19,16 +23,31 @@ searchBox.addEventListener('input', event => {
 //?fields=name,capital,currencies
 
 function fetchCountries(name) {
-  return fetch(`https://restcountries.com/v3.1/name/${userText}`).then(
-    response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
+  return fetch(`https://restcountries.com/v3.1/all`).then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
     }
-  );
+    return response.json();
+  });
 }
 
+function renderCountriesList(countries) {
+  console.log(countries);
+  console.log(777);
+  const markup = countries
+    .map(countrie => {
+      return `<li>
+                <p><b>Name</b>:${countrie.area}</p>
+              </li>
+          `;
+    })
+
+    .join('');
+  // countryList.insertAdjacentHTML = markup;
+  countryList.innerHTML = markup;
+  // console.log(markup);
+}
+// console.log(countrie);
 // const listCountries = fetch(`https://restcountries.com/v3.1/name/peru`)
 //   .then(response => {
 //     //console.log(response.json());
